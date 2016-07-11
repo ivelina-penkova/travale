@@ -1,2 +1,2 @@
-# Travale
+# travale app
 Course Project
