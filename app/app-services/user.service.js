@@ -15,7 +15,7 @@
         service.Create = Create;
         service.Update = Update;
         service.Delete = Delete;
-
+		
         return service;
 
         function GetCurrent() {

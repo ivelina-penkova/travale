@@ -1,0 +1,29 @@
+<h1>Items</h1>
+<table>
+	<thead>
+		<tr>
+			<th>
+				Title
+			</th>
+			<th>
+				Price Per Unit
+			</th>
+			<th>
+				Quantity
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="item in vm.items">
+			<td>
+				<a ng-href="#/items/{{item._id}}">{{item.title}}</a>
+			</td>
+			<td>
+				<span>{{item.pricePerUnit}}</span>
+			</td>
+			<td>
+				<span>{{item.quantity}}</span>
+			</td>
+		</tr>
+	</tbody>
+</table>

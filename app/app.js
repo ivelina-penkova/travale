@@ -24,6 +24,19 @@
                 controller: 'Account.IndexController',
                 controllerAs: 'vm',
                 data: { activeTab: 'account' }
+            })
+			.state('items', {
+                url: '/items/:itemId',
+                templateUrl: function(params){
+					if (params.itemId && params.itemId !== "") {
+						return "items/item.html";
+					} else {
+						return "items/index.html";
+					}
+				},
+                controller: 'Items.IndexController',
+                controllerAs: 'vm',
+                data: { activeTab: 'items' }
             });
     }
 
