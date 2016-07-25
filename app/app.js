@@ -19,8 +19,14 @@
                 data: { activeTab: 'home' }
             })
             .state('account', {
-                url: '/account',
-                templateUrl: 'account/index.html',
+                url: '/account/:userId',
+                templateUrl: function(params){
+					if (params.userId && params.userId !== "") {
+						return "account/account.html";
+					} else {
+						return "account/index.html";
+					}
+				},
                 controller: 'Account.IndexController',
                 controllerAs: 'vm',
                 data: { activeTab: 'account' }

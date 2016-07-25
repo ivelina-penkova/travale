@@ -5,7 +5,7 @@
         .module('app')
         .controller('Account.IndexController', Controller);
 
-    function Controller($window, UserService, FlashService) {
+    function Controller($window, $stateParams, UserService, FlashService) {
         var vm = this;
 
         vm.user = null;
@@ -16,9 +16,12 @@
 
         function initController() {
             // get current user
-            UserService.GetCurrent().then(function (user) {
-                vm.user = user;
-            });
+			if ($stateParams.userId && $stateParams.userId !== "") {
+				getUser();
+			} else {
+				getCurrentUser();
+			}
+            
         }
 
         function saveUser() {
@@ -41,6 +44,22 @@
                     FlashService.Error(error);
                 });
         }
+		
+		function getCurrentUser() {
+			UserService.GetCurrent().then(function (user) {
+                vm.user = user;
+            });
+		}
+		
+		function getUser() {
+			UserService.GetById($stateParams.userId)
+				.then(function(user){
+					vm.user = user;
+				})
+				.catch(function(error){
+					FlashService.Error(error);
+				});
+		}
     }
 
 })();

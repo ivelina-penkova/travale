@@ -5,7 +5,7 @@
         .module('app')
         .controller('Items.IndexController', Controller);
 
-    function Controller($window, $stateParams, ItemService, FlashService) {
+    function Controller($window, $stateParams, ItemService, UserService, FlashService) {
         var vm = this;
 		
 		vm.createItem = createItem;
@@ -16,6 +16,17 @@
         initController();
 
         function initController() {
+			// DEBUG
+			//
+			// uncomment to create an item when controller
+			// is initialized (use only for debugging prurposes)
+			//
+			/*vm.item = {};
+			vm.item.title = "Telephone";
+			vm.item.pricePerUnit = 200.00;
+			vm.item.quantity = 1;
+			createItem();*/
+			
 			if ($stateParams.itemId && $stateParams.itemId !== "") {
 				// if an ID is provided then the user has requested
 				// a specific item
@@ -45,6 +56,13 @@
 			ItemService.GetById($stateParams.itemId)
 				.then(function(item){
 					vm.item = item;
+					UserService.GetById(item.authorId)
+						.then(function(user){
+							vm.currentItemAuthor = user;
+						})
+						.catch(function(error){
+							FlashService.Error(error);
+						});
 				})
 				.catch(function(error){
 					FlashService(error);

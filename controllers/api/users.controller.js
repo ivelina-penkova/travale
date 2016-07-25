@@ -9,6 +9,7 @@ router.post('/register', registerUser);
 router.get('/current', getCurrentUser);
 router.put('/:_id', updateUser);
 router.delete('/:_id', deleteUser);
+router.get('/:_id', getUserById);
 
 module.exports = router;
 
@@ -82,4 +83,18 @@ function deleteUser(req, res) {
         .catch(function (err) {
             res.status(400).send(err);
         });
+}
+
+function getUserById(req, res) {
+	userService.getById(req.params._id)
+		.then(function(user){
+			if (user) {
+				res.send(user);
+			} else {
+				res.sendStatus(404);
+			}
+		})
+		.catch(function(err){
+			res.status(400).send(err);
+		});
 }
