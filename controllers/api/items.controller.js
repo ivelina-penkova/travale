@@ -10,6 +10,7 @@ router.delete('/:_id', deleteItem);
 router.get('/:_id', getItemById);
 router.post('/', createItem);
 router.get('/', getAllItems);
+router.get('/filter/:title/:priceMin/:priceMax/:quantity', getFilteredItems);
 
 module.exports = router;
 
@@ -76,6 +77,20 @@ function createItem(req, res) {
 
 function getAllItems(req, res) {
 	itemService.getAll()
+		.then(function(items){
+			if (items && items.length > 0) {
+				res.send(items);
+			} else {
+				res.sendStatus(404);
+			}
+		})
+		.catch(function(err){
+			res.status(400).send(err);
+		});
+}
+
+function getFilteredItems(req, res) {
+	itemService.filter(req.params)
 		.then(function(items){
 			if (items && items.length > 0) {
 				res.send(items);

@@ -77,6 +77,13 @@ function create(userParam) {
         // add hashed password to user object
         user.hash = bcrypt.hashSync(userParam.password, 10);
 
+		// add empty filters to the user object
+		user.filters = {};
+		user.filters.title = null;
+		user.filters.priceMin = null;
+		user.filters.priceMax = null;
+		user.filters.quantity = null;
+		
         db.users.insert(
             user,
             function (err, doc) {

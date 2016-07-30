@@ -16,6 +16,7 @@ service.getById = getById;
 service.create = create;
 service.update = update;
 service.delete = _delete;
+service.filter = filter;
 
 module.exports = service;
 
@@ -119,4 +120,49 @@ function _delete(_id) {
         });
 
     return deferred.promise;
+}
+
+function filter(filters) {
+	var deferred = Q.defer();
+	
+	db.items.find(formatFilterQuery(filters)).toArray(function(err, items) {
+		if (err) deferred.reject(err);
+		
+		deferred.resolve(items);
+	});
+	
+	return deferred.promise;
+}
+
+// private functions
+
+// utility functions which formats the query properly
+// depending on the user's filters
+function formatFilterQuery(filters) {
+	var query = {};
+	
+	filters.priceMin = parseFloat(filters.priceMin);
+	filters.priceMax = parseFloat(filters.priceMax);
+	
+	// https://mongodb.github.io/node-mongodb-native/markdown-docs/queries.html#regular-expressions-in-queries
+	//
+	if (filters.title && filters.title !== "" && filters.title !== "undefined" && filters.title !== "null") {
+		query.title = new RegExp(filters.title, 'i');
+	}
+	
+	// https://mongodb.github.io/node-mongodb-native/markdown-docs/queries.html#conditionals
+	//
+	if (filters.priceMin && filters.priceMin > 0 && filters.priceMax && filters.priceMax > filters.priceMin) {
+		query.pricePerUnit = { $gt: filters.priceMin, $lt: filters.priceMax };
+	} else if(filters.priceMin && filters.priceMin > 0 && !filters.priceMax) {
+		query.pricePerUnit = { $gt: filters.priceMin };
+	} else if(filters.priceMax && filters.priceMax > 0 && !filters.priceMin) {
+		query.pricePerUnit = { $lt: filters.priceMax };
+	}
+	
+	if (filters.quantity && filters.quantity > 0 ) {
+		query.quantity = parseInt(filters.quantity);
+	}
+	
+	return query;
 }

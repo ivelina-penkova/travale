@@ -1,5 +1,26 @@
 <h1>Items</h1>
-<table>
+<div class="form-container">
+	<form method="post">
+		<div class="form-group">
+			<label for="search-title">Title</label>
+			<input type="text" id="search-title" class="form-control" ng-model="vm.currentUser.filters.title" />
+		</div>
+		<div class="form-group">
+			<label for="search-price-min">Price higher than</label>
+			<input type="number" step="0.01" id="search-price-min" class="form-control" ng-model="vm.currentUser.filters.priceMin"/>
+			<label for="search-price-max">Price lower than</label>
+			<input type="number" step="0.01" id="search-price-max" class="form-control" ng-model="vm.currentUser.filters.priceMax"/>
+		</div>
+		<div class="form-group">
+			<label for="search-quantity">Quantity</label>
+			<input type="number" id="search-quantity" class="form-control" ng-model="vm.currentUser.filters.quantity" />
+		</div>
+		<div class="form-group">
+			<button class="btn btn-primary" ng-click="vm.updateFilters()">Update Filters</button>
+		</div>
+	</form>
+</div>
+<table id="items">
 	<thead>
 		<tr>
 			<th>

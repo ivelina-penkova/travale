@@ -9,6 +9,7 @@
         var service = {};
 
         service.GetAll = GetAll;
+		service.GetAllFiltered = GetAllFiltered;
         service.GetById = GetById;
         service.GetByAuthor = GetByAuthor;
         service.Create = Create;
@@ -21,6 +22,13 @@
             return $http.get('/api/items').then(handleSuccess, handleError);
         }
 
+		function GetAllFiltered(filters) {
+			return $http.get('/api/items/filter/' + filters.title +
+							"/" + filters.priceMin +
+							"/" + filters.priceMax +
+							"/" + filters.quantity).then(handleSuccess, handleError);
+		}
+		
         function GetById(_id) {
             return $http.get('/api/items/' + _id).then(handleSuccess, handleError);
         }

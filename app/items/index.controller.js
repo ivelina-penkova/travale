@@ -11,7 +11,8 @@
 		vm.createItem = createItem;
 		vm.deleteItem = deleteItem;
 		vm.getItem = getItem;
-		vm.getItems = getAllItems;
+		vm.getItems = getItems;
+		vm.updateFilters = updateFilters;
 		
         initController();
 
@@ -34,7 +35,7 @@
 			} else {
 				// if no ID is provided then the user has requested
 				// all the items
-				getAllItems();
+				getItems();
 			}
         }
 		
@@ -69,10 +70,46 @@
 				});
 		}
 		
-		function getAllItems() {
-			ItemService.GetAll()
-				.then(function(items){
-					vm.items = items;
+		function getItems() {
+			UserService.GetCurrent()
+				.then(function(user){
+					vm.currentUser = user;
+					
+					// temporary workaround for when sending
+					// a query without a title
+					if (!vm.currentUser.filters.title) {
+						vm.currentUser.filters.title = null;
+					}
+					
+					ItemService.GetAllFiltered(vm.currentUser.filters)
+						.then(function(items){
+							vm.items = items;
+						})
+						.catch(function(error){
+							FlashService.Error(error);
+						});
+				})
+				.catch(function(error){
+					FlashService.Error(error);
+				});
+		}
+		
+		function updateFilters() {
+			UserService.Update(vm.currentUser)
+				.then(function(){
+					// temporary workaround for when sending
+					// a query without a title
+					if (!vm.currentUser.filters.title) {
+						vm.currentUser.filters.title = null;
+					}
+						
+					ItemService.GetAllFiltered(vm.currentUser.filters)
+						.then(function(items){
+							vm.items = items;
+						})
+						.catch(function(error){
+							FlashService.Error(error);
+						});
 				})
 				.catch(function(error){
 					FlashService.Error(error);
