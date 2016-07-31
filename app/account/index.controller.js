@@ -11,6 +11,7 @@
         vm.user = null;
         vm.saveUser = saveUser;
         vm.deleteUser = deleteUser;
+        vm.initChat = initChat;
 
         initController();
 
@@ -60,6 +61,11 @@
 					FlashService.Error(error);
 				});
 		}
+
+        function initChat(){
+            var chatbox = document.getElementById("chat-box");
+            chatbox.style.display = "block";
+        }
     }
 
 })();

@@ -6,6 +6,10 @@
 
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" />
     <link href="app-content/app.css" rel="stylesheet" />
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io.connect();
+    </script>
 </head>
 <body class="container">
     <!-- header -->
@@ -22,7 +26,17 @@
     </header>
 
     <!-- main -->
-    <main ui-view></main>
+    <main ui-view>
+    </main>
+
+    <div id="chat-box" style="display: none;">
+        <span id="chat-username"></span>
+        <ul id="chat-messages"></ul>
+        <div>
+            <input type="text" id="chat-input"/>
+            <button d="chat-btn-send">Send</button>
+        </div>
+    </div>
 
     <!-- footer -->
     <footer></footer>
