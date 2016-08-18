@@ -5,7 +5,7 @@
         .module('app', ['ui.router'])
         .config(config)
         .run(run);
-
+        
     function config($stateProvider, $urlRouterProvider) {
         // default route
         $urlRouterProvider.otherwise("/");
@@ -34,11 +34,13 @@
 			.state('items', {
                 url: '/items/:itemId',
                 templateUrl: function(params){
-					if (params.itemId && params.itemId !== "") {
-						return "items/item.html";
-					} else {
+					if (!params.itemId) {
 						return "items/index.html";
-					}
+					} else if (params.itemId && params.itemId === "create") {
+						return "items/create-item.html";
+					} else {
+                        return "items/item.html";
+                    }
 				},
                 controller: 'Items.IndexController',
                 controllerAs: 'vm',
