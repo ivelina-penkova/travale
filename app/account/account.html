@@ -1,2 +1,5 @@
 <h1>{{vm.user.username}}'s profile</h1>
-<button ng-click="vm.initChat()">Send IM</button>
+<label>First Name:</label><span>{{vm.user.firstName}}<span>
+<label>Last Name:</label><span>{{vm.user.lastName}}<span>
+<label>Address:</label><span>{{vm.user.address}}<span>
+<button ng-click="vm.createChatBox()">Send IM</button>

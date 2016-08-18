@@ -128,6 +128,8 @@ function update(_id, userParam) {
             firstName: userParam.firstName,
             lastName: userParam.lastName,
             username: userParam.username,
+			address: userParam.address,
+			filters: userParam.filters
         };
 
         // update password if it was entered
