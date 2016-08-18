@@ -149,6 +149,18 @@
 					FlashService.Error(error);
 				});
 		}
+        
+        function updateItem() {
+            ItemService.Update(vm.item)
+                .then(function(){
+                    FlashService.Success("Item successfully updated!");
+                })
+                .catch(function(error){
+                    FlashService.Error(error);
+                });
+        }
+        
+        // private functions
     }
 
 })();

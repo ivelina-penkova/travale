@@ -6,7 +6,7 @@ var jwt = require('jsonwebtoken');
 
 // routes
 router.put('/:_id', updateItem);
-router.delete('/:_id', deleteItem);
+router.delete('/:_id/:authorId', deleteItem);
 router.get('/:_id', getItemById);
 router.post('/', createItem);
 router.get('/', getAllItems);
@@ -15,12 +15,12 @@ router.get('/filter/:title/:priceMin/:priceMax/:quantity', getFilteredItems);
 module.exports = router;
 
 function updateItem(req, res) {
-    if (req.params.authorId !== req.user.sub) {
+    if (req.body.authorId !== req.user.sub) {
         // can only update own items
         return res.status(401).send('You can only update your own items');
     }
-
-    itemService.update(itemId, req.body)
+    
+    itemService.update(req.params._id, req.body)
         .then(function () {
             res.sendStatus(200);
         })
@@ -35,7 +35,7 @@ function deleteItem(req, res) {
         return res.status(401).send('You can only delete your own items');
     }
 
-    itemService.delete()
+    itemService.delete(req.params._id)
         .then(function () {
             res.sendStatus(200);
         })

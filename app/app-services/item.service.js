@@ -47,8 +47,8 @@
             return $http.put('/api/items/' + item._id, item).then(handleSuccess, handleError);
         }
 
-        function Delete(_id) {
-            return $http.delete('/api/items/' + _id).then(handleSuccess, handleError);
+        function Delete(itemId, userId) {
+            return $http.delete('/api/items/' + itemId + '/' + userId).then(handleSuccess, handleError);
         }
 
         // private functions
