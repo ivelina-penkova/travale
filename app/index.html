@@ -6,10 +6,9 @@
 
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" />
     <link href="app-content/app.css" rel="stylesheet" />
+    
+    <!-- socket.io for the chat -->
     <script src="/socket.io/socket.io.js"></script>
-    <script>
-        var socket = io.connect();
-    </script>
 </head>
 <body class="container">
     <!-- header -->
@@ -29,19 +28,11 @@
     <main ui-view>
     </main>
 
-    <div id="chat-box" style="display: none;">
-        <span id="chat-username"></span>
-        <ul id="chat-messages"></ul>
-        <div>
-            <input type="text" id="chat-input"/>
-            <button d="chat-btn-send">Send</button>
-        </div>
-    </div>
-
     <!-- footer -->
     <footer></footer>
 
     <!-- external scripts -->
+	<script src="http://maps.googleapis.com/maps/api/js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
@@ -52,6 +43,7 @@
     <script src="app-services/user.service.js"></script>
     <script src="app-services/chat.service.js"></script>
     <script src="app-services/flash.service.js"></script>
+	<script src="app-services/geolocation.service.js"></script>
     <script src="home/index.controller.js"></script>
     <script src="account/index.controller.js"></script>
 	<script src="items/index.controller.js"></script>
