@@ -7,3 +7,4 @@ and Informatics of Sofia University.
 # Known issues
 
 * When manually typing the ID of the current user it allows you to interact with yourself as if you are another user
+* The chatbox doesn't scroll down to the latest message
