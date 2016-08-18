@@ -35,14 +35,13 @@ server.listen(3000, function () {
 });
 
 socketio.on('connection', function(socket){
-  console.log('a user connected');
+    console.log("socket " + socket.id + " has connected");
+	
+	socket.on('chat message', function(msg){
+		socket.broadcast.emit('chat message', msg);
+	});
 
-  socket.on('chat message', function(msg){
-     console.log('chat message: ' + msg);
-     socketio.emit('chat message', msg);
-   });
-
-   socket.on('disconnect', function(){
-     console.log('user disconnected');
-   });
+	socket.on('disconnect', function() {
+		console.log("socket " + socket.id + " has disconnected");
+	});
 });

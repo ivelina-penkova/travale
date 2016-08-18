@@ -4,29 +4,40 @@
     angular
         .module('app')
         .controller('Account.IndexController', Controller);
-
-    function Controller($window, $stateParams, UserService, FlashService) {
+        
+    function Controller($window, $stateParams, UserService, FlashService, ChatService) {
         var vm = this;
-
+        
         vm.user = null;
+        vm.currentUser = null;
+        
         vm.saveUser = saveUser;
         vm.deleteUser = deleteUser;
-        vm.initChat = initChat;
+        vm.createChatBox = createChatBox;
 
         initController();
 
         function initController() {
-            // get current user
-			if ($stateParams.userId && $stateParams.userId !== "") {
-				getUser();
-			} else {
-				getCurrentUser();
-			}
-            
+			// get current user
+			UserService.GetCurrent().then(function (user) {
+				vm.currentUser = user;
+                
+				if ($stateParams.userId && $stateParams.userId !== "") {
+					UserService.GetById($stateParams.userId)
+						.then(function(user){
+							vm.user = user;
+						})
+						.catch(function(error){
+							FlashService.Error(error);
+						});
+				}
+				
+                ChatService.InitializeChat(vm.currentUser._id);
+            });
         }
 
         function saveUser() {
-            UserService.Update(vm.user)
+            UserService.Update(vm.currentUser)
                 .then(function () {
                     FlashService.Success('User updated');
                 })
@@ -36,7 +47,7 @@
         }
 
         function deleteUser() {
-            UserService.Delete(vm.user._id)
+            UserService.Delete(vm.currentUser._id)
                 .then(function () {
                     // log user out
                     $window.location = '/login';
@@ -45,27 +56,20 @@
                     FlashService.Error(error);
                 });
         }
-		
-		function getCurrentUser() {
-			UserService.GetCurrent().then(function (user) {
-                vm.user = user;
-            });
-		}
-		
-		function getUser() {
-			UserService.GetById($stateParams.userId)
-				.then(function(user){
-					vm.user = user;
-				})
-				.catch(function(error){
-					FlashService.Error(error);
-				});
-		}
-
-        function initChat(){
-            var chatbox = document.getElementById("chat-box");
-            chatbox.style.display = "block";
+        
+        function getCurrentUser() {
+            
         }
+        
+        function getUser() {
+            
+        }
+		
+		function createChatBox() {
+			ChatService.CreateChatBox(vm.currentUser, vm.user);
+		}
+        
+        // private functions
     }
 
 })();
