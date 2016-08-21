@@ -1,16 +1,16 @@
 <div class="form-container">
     <form method="post">
         <div class="form-group">
-            <label for="title">Title</label>
-            <input type="text" id="title" class="form-control" ng-model="vm.item.title" required />
+            <label class="label-filter" for="title">Title</label>
+            <input class="account-input" type="text" id="title" class="form-control" ng-model="vm.item.title" required />
         </div>
         <div class="form-group">
-            <label for="price-per-unit">Price per unit</label>
-            <input type="text" id="price-per-unit" class="form-control" ng-model="vm.item.pricePerUnit" required />
+            <label class="label-filter" for="price-per-unit">Price per unit</label>
+            <input class="account-input" type="text" id="price-per-unit" class="form-control" ng-model="vm.item.pricePerUnit" required />
         </div>
         <div class="form-group">
-            <label for="quantity">Quantity</label>
-            <input type="text" id="quantity" class="form-control" ng-model="vm.item.quantity" required />
+            <label class="label-filter" for="quantity">Quantity</label>
+            <input class="account-input" type="text" id="quantity" class="form-control" ng-model="vm.item.quantity" required />
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary" ng-click="vm.createItem()">Create</button>

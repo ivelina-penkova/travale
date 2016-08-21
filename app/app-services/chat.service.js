@@ -64,7 +64,7 @@
 				sendMsgContainer = document.createElement('div'),
 				inputField = document.createElement('input'),
 				sendMsgButton = document.createElement('button');
-				
+
 				chatId = sender._id + '|' + receiver._id;
 				chats[chatId] = {};
 				chats[chatId].chatBox = chatBox;
@@ -87,7 +87,7 @@
 				sendMsgContainer.className = 'chat-send-msg-container';
 				inputField.type = 'text';
 				inputField.className = 'chat-input';
-				sendMsgButton.className = 'chat-btn-send';
+				sendMsgButton.className = 'chat-btn-send btn btn-primary';
 				sendMsgButton.innerHTML = 'Send';
 				
 				sendMsgButton.addEventListener('click', function(){

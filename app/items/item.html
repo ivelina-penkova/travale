@@ -1,26 +1,26 @@
 <div class="form-container">
     <form method="post">
         <div class="form-group">
-            <label for="title">Title</label>
+            <label class="label-filter" for="title">Title:</label>
             <span id="title" ng-if="vm.currentUser._id !== vm.currentItemAuthor._id">{{vm.item.title}}</span>
-            <input ng-if="vm.currentUser._id === vm.currentItemAuthor._id" type="text" id="title" class="form-control" ng-model="vm.item.title" required />
+            <input class="account-input" ng-if="vm.currentUser._id === vm.currentItemAuthor._id" type="text" id="title" class="form-control" ng-model="vm.item.title" required />
         </div>
         <div class="form-group">
-            <label for="price-per-unit">Price per unit</label>
+            <label class="label-filter" for="price-per-unit">Price per unit:</label>
             <span id="price-per-unit" ng-if="vm.currentUser._id !== vm.currentItemAuthor._id">{{vm.item.pricePerUnit}}</span>
-            <input ng-if="vm.currentUser._id === vm.currentItemAuthor._id" type="text" id="price-per-unit" class="form-control" ng-model="vm.item.pricePerUnit" required />
+            <input class="account-input" ng-if="vm.currentUser._id === vm.currentItemAuthor._id" type="text" id="price-per-unit" class="form-control" ng-model="vm.item.pricePerUnit" required />
         </div>
         <div class="form-group">
-            <label for="quantity">Quantity</label>
+            <label class="label-filter" for="quantity">Quantity:</label>
             <span id="quantity" ng-if="vm.currentUser._id !== vm.currentItemAuthor._id">{{vm.item.quantity}}</span>
-            <input ng-if="vm.currentUser._id === vm.currentItemAuthor._id" type="text" id="quantity" class="form-control" ng-model="vm.item.quantity" required />
+            <input class="account-input" ng-if="vm.currentUser._id === vm.currentItemAuthor._id" type="text" id="quantity" class="form-control" ng-model="vm.item.quantity" required />
         </div>
         <div class="form-group" ng-if="vm.currentUser._id === vm.currentItemAuthor._id">
             <button class="btn btn-primary" ng-click="vm.updateItem()">Save</button>
             <button class="btn btn-danger" ng-click="vm.deleteItem()">Delete</button>
         </div>
         <div class="form-group" ng-if="vm.currentUser._id !== vm.currentItemAuthor._id">
-            <label for="author">Author</label>
+            <label class="label-filter" for="author">Author:</label>
             <a id="author" ng-href="#/account/{{vm.currentItemAuthor._id}}">{{vm.currentItemAuthor.username}}</span>
 		</div>
     </form>
